@@ -1,0 +1,39 @@
+var remindersList = [];
+var index = 0;
+
+updateScreen();
+
+// when clicked, moves to the next item in the list
+onEvent("rightButton","click",function(){
+  if(index < remindersList.length - 1){
+    index++;
+  }
+  updateScreen();
+});
+
+// when clicked, moves to the previous item in the list
+onEvent("leftButton","click",function(){
+  if(index > 0){
+    index--;
+  }
+  updateScreen();
+});
+
+// gets text from "reminderInput" and adds it to the remindersList
+onEvent("addButton", "click", function( ) {
+  var addInput = getText("reminderInput");
+  appendItem(remindersList, addInput);
+  updateScreen();
+});
+
+// updates the display on the screen with the current spot in the list and list item
+function updateScreen(){
+  setProperty("reminderInput", "text", "");
+
+  if(remindersList.length > 0){
+    setProperty("reminderOutput", "text", remindersList[index]);
+    setProperty("countOutput", "text", index + 1);
+  } else {
+    setProperty("reminderOutput", "text", "Add reminders!");
+  }
+}
